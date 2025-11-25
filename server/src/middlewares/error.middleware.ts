@@ -23,4 +23,4 @@ const errorMiddleware = async (
   }
 };
 
-export default errorMiddleware;
+export { ResponseError, errorMiddleware };
