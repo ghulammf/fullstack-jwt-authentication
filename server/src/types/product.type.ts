@@ -3,8 +3,8 @@ interface Product {
   name: string;
   price: number;
   stock: number;
-  createdAt?: number;
-  updatedAt?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export default Product;
