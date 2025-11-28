@@ -15,7 +15,7 @@
   "author": "Ghulam Muhtadi Fiamrillah",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^7.0.0",
+    "@prisma/client": "^7.0.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "joi": "^18.0.2",
