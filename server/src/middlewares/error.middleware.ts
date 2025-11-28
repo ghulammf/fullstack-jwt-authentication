@@ -6,21 +6,27 @@ class ResponseError extends Error {
   }
 }
 
-const errorMiddleware = async (
-  error: Error,
+const errorMiddleware = (
+  error: unknown,
   request: Request,
   response: Response,
   next: NextFunction
 ) => {
-  if (error instanceof ResponseError) {
-    response.status(error.status).json({
-      message: error.message,
-    });
-  } else {
-    response.status(500).json({
-      message: error.message,
+  const err = error instanceof Error ? error : new Error(String(error));
+
+  if (err instanceof ResponseError) {
+    response.status(err.status).json({
+      status: "error",
+      message: err.message,
     });
   }
+
+  console.error(err);
+
+  return response.status(500).json({
+    status: "error",
+    message: err.message || "Internal server error",
+  });
 };
 
 export { ResponseError, errorMiddleware };
