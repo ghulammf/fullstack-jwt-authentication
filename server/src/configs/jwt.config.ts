@@ -1,19 +1,11 @@
-import { ResponseError } from "../middlewares/error.middleware";
-
-function envToken(name: string): string {
-  const value = process.env[name];
-  if (!value) throw new ResponseError(400, `Missing env var: ${name}`);
-  return value;
-}
-
 const jwtConfig = {
   access: {
-    secret: envToken("JWT_ACCESS_SECRET"),
-    expiresIn: envToken("JWT_ACCESS_EXPIRES_IN") || "15m",
+    secret: process.env.JWT_ACCESS_SECRET!,
+    expiresIn: process.env.JWT_ACCESS_EXPIRES_IN || "15m",
   },
   refresh: {
-    secret: envToken("JWT_REFRESH_SECRET"),
-    expiresIn: envToken("JWT_REFRESH_EXPIRES_IN") || "7d",
+    secret: process.env.JWT_REFRESH_SECRET,
+    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
   },
 };
 
