@@ -1,10 +1,12 @@
+import { Role } from "@prisma/client";
 import { Request } from "express";
-import { Role } from "./user.type";
+// import { Role } from "./user.type";
 
 interface RegisterRequest {
   username: string;
   email: string;
   password: string;
+  confirm_password: string;
 }
 
 interface RegisterResponse {
