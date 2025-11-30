@@ -1,7 +1,4 @@
-enum Role {
-  ADMIN = "ADMIN",
-  USER = "USER",
-}
+import { Role } from "@prisma/client";
 
 interface User {
   username: string;
@@ -11,4 +8,4 @@ interface User {
   updatedAt: Date;
 }
 
-export { Role, User };
+export default User;
