@@ -1,8 +1,9 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import productRouter from "../routers/product.route";
 import cors from "cors";
 import { errorMiddleware } from "../middlewares/error.middleware";
 import dotenv from "dotenv";
+import authRouter from "../routers/auth.route";
 
 const app = express();
 dotenv.config();
@@ -18,7 +19,12 @@ app.use(
 );
 
 app.use(express.json());
+app.use(authRouter);
 app.use(productRouter);
+
+app.get("/", function (req: Request, res: Response) {
+  res.json({ message: "hello from server" });
+});
 
 app.use(errorMiddleware);
 
