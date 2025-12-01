@@ -38,6 +38,11 @@ interface JwtPayload {
   role: Role;
 }
 
+interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
 interface AuthRequest extends Request {
   user?: JwtPayload;
 }
@@ -48,5 +53,6 @@ export {
   LoginRequest,
   LoginResponse,
   JwtPayload,
+  AuthTokens,
   AuthRequest,
 };
