@@ -22,10 +22,19 @@ class AuthController {
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await AuthService.login(req.body);
+
+      res.cookie("refreshToken", data.refreshToken, {
+        httpOnly: true, // Wajib: Agar JS tidak bisa baca
+        secure: false, // Wajib: Hanya HTTPS (false jika di localhost dev)
+        sameSite: "strict", // Anti CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Hari
+      });
+
       return res.status(200).json({
         status: "success",
         message: "Login successfully",
-        data: data,
+        user: data.user,
+        accessToken: data.accessToken,
       });
     } catch (error) {
       next(error);
@@ -59,10 +68,17 @@ class AuthController {
 
       const tokens = await AuthService.refreshToken(refreshToken);
 
+      res.cookie("refreshToken", tokens.refreshToken, {
+        httpOnly: true, // Wajib: Agar JS tidak bisa baca
+        secure: false, // Wajib: Hanya HTTPS (false jika di localhost dev)
+        sameSite: "strict", // Anti CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Hari
+      });
+
       return res.status(200).json({
         status: "success",
-        message: "Token refreshed successfully",
-        data: { tokens },
+        message: "New accessToken retrieved successfully",
+        accessToken: tokens.accessToken,
       });
     } catch (error) {
       next(error);
