@@ -1,4 +1,4 @@
-interface ProductResponse {
+interface Product {
   id: number;
   name: string;
   price: number;
@@ -7,10 +7,10 @@ interface ProductResponse {
   updatedAt: string;
 }
 
-interface ProductRequset {
+interface ProductInput {
   name: string;
   price: number;
   stock: number;
 }
 
-export type { ProductRequset, ProductResponse };
+export type { Product, ProductInput };
