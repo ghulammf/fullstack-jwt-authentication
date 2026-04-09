@@ -1,7 +1,7 @@
 interface User {
   username: string;
   email: string;
-  role: "admin" | "user";
+  role: "ADMIN" | "USER";
 }
 
 export default User;

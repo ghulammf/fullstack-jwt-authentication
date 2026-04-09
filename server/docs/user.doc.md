@@ -16,11 +16,13 @@ Response Body (success):
     {
       "username": "ahmadsolih",
       "email": "ahmadsolih@gmail.com",
+      "role": "ADMIN",
       "createdAt": "2025-11-23 21:38:00"
     },
     {
       "username": "ahmadshidiq",
       "email": "ahmadshidiq@gmail.com",
+      "role": "USER",
       "createdAt": "2025-11-24 08:51:00"
     }
   ]
@@ -38,7 +40,7 @@ Response Body (error):
 
 ## Delete User
 
-Endpoint: DELETE /api/users/:id
+Endpoint: DELETE /api/users/:username
 
 Authorization: Bearer ${access_token}
 

@@ -1,19 +1,24 @@
 "use client";
 
-import { ProductRequset, ProductResponse } from "@/types/product.type";
-import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import { Button } from "primereact/button";
+import { Product } from "@/types/product.type";
 
 interface ProductCardProps {
-  product: ProductResponse;
-  onEdit?: (product: ProductRequset) => void;
+  product: Product;
+  onEdit?: (product: Product) => void;
   onDelete?: (id: number) => void;
   isAdmin?: boolean;
 }
 
-function ProductCard({ product, onEdit, onDelete, isAdmin }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  onEdit,
+  onDelete,
+  isAdmin,
+}: ProductCardProps) {
   const header = (
-    <div className="bg-linear-to-r from-blue-50 to-purple-600 h-32 flex items-center justify-center">
+    <div className="bg-linear-to-r from-blue-500 to-purple-600 h-32 flex items-center justify-center rounded-t-lg">
       <i className="pi pi-box text-white text-4xl"></i>
     </div>
   );
@@ -59,5 +64,3 @@ function ProductCard({ product, onEdit, onDelete, isAdmin }: ProductCardProps) {
     </Card>
   );
 }
-
-export default ProductCard;

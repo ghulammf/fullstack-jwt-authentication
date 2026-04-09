@@ -26,7 +26,7 @@ class TokenService {
   }
 
   static async findRefreshToken(refreshToken: string) {
-    return prisma.refreshToken.findUnique({
+    return prisma.refreshToken.findFirst({
       where: { token: refreshToken },
       include: { user: true },
     });

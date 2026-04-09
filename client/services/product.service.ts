@@ -1,8 +1,8 @@
 import { apiClient } from "@/lib/axios";
-import { ProductRequset, ProductResponse } from "@/types/product.type";
+import { ProductInput } from "@/types/product.type";
 
 const productService = {
-  create: async (data: ProductRequset) => {
+  create: async (data: ProductInput) => {
     const response = await apiClient.post("/api/products", data);
     return response.data;
   },
@@ -12,17 +12,17 @@ const productService = {
     return response.data;
   },
 
-  getItem: async (id: string) => {
+  getItem: async (id: number) => {
     const response = await apiClient.get("/api/products" + id);
     return response.data;
   },
 
-  update: async (id: string, data: ProductResponse) => {
+  update: async (id: number, data: ProductInput) => {
     const response = await apiClient.put(`/api/products/${id}`, data);
     return response.data;
   },
 
-  delete: async (id: string) => {
+  delete: async (id: number) => {
     const response = await apiClient.delete(`/api/products/${id}`);
     return response.data;
   },

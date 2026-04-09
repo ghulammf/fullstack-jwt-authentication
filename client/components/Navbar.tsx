@@ -1,26 +1,26 @@
 "use client";
 
-import authService from "@/services/auth.service";
 import useAuthStore from "@/store/auth.store";
-import { initTheme, toggleTheme } from "@/utils/theme";
+import useThemeStore from "@/store/theme.store";
+// import { initTheme, toggleTheme } from "@/utils/theme";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Menubar } from "primereact/menubar";
 import { MenuItem } from "primereact/menuitem";
-import { useEffect, useState } from "react";
 
 function Navbar() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
-  const [isDark, setIsDark] = useState(false);
+  const { isDarkMode, toggleTheme } = useThemeStore();
+  // const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {
-    setIsDark(initTheme());
-  }, []);
+  // useEffect(() => {
+  //   setIsDark(initTheme());
+  // }, []);
 
   const handleLogout = async () => {
     try {
-      await authService.logout();
+      await logout();
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
@@ -29,10 +29,10 @@ function Navbar() {
     }
   };
 
-  const handleToggleTheme = () => {
-    const newTheme = toggleTheme();
-    setIsDark(newTheme);
-  };
+  // const handleToggleTheme = () => {
+  //   const newTheme = toggleTheme();
+  //   setIsDark(newTheme);
+  // };
 
   const items: MenuItem[] = [
     {
@@ -48,22 +48,26 @@ function Navbar() {
   ];
 
   const end = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 h-20 px-8">
       <span className="text-sm font-medium">{user?.username}</span>
-      <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded"></span>
+      <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+        {user?.role?.toUpperCase()}
+      </span>
       <Button
-        icon={isDark ? "pi pi-sun" : "pi pi-moon"}
+        icon={isDarkMode ? "pi pi-sun" : "pi pi-moon"}
         rounded
         text
-        onClick={handleToggleTheme}
-        tooltip={isDark ? "Light Mode" : "Dark Mode"}
+        onClick={toggleTheme}
+        tooltip={isDarkMode ? "Light Mode" : "Dark Mode"}
         tooltipOptions={{ position: "bottom" }}
-      ></Button>
+      />
+
       <Button
         label="Logout"
         icon="pi pi-sign-out"
         severity="danger"
         onClick={handleLogout}
+        className="h-10"
       ></Button>
     </div>
   );

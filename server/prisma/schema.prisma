@@ -34,7 +34,7 @@ enum Role {
 
 model RefreshToken{
   id String @id @default(uuid())
-  token String @unique
+  token String @db.Text
   userId String
   user User @relation(fields: [userId], references: [username], onDelete: Cascade)
   expiresAt DateTime

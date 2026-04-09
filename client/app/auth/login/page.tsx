@@ -1,7 +1,7 @@
 "use client";
 
-import authService from "@/services/auth.service";
 import useAuthStore from "@/store/auth.store";
+import errorMessage from "@/utils/error-handler";
 import { useToast } from "@/utils/toast";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
@@ -12,7 +12,7 @@ import React, { useState } from "react";
 
 function LoginPage() {
   const router = useRouter();
-  const { setAuth } = useAuthStore();
+  const { login } = useAuthStore();
   const toast = useToast();
 
   const [formData, setFormData] = useState({
@@ -26,12 +26,10 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await authService.login(formData);
-      setAuth(response.accessToken, response.user);
-      toast.showSuccess(response.message);
+      await login(formData);
       router.push("/dashboard");
-    } catch (error: any) {
-      toast.showError(error.response?.data?.message || "Failed to Login");
+    } catch (error: unknown) {
+      toast.showError(errorMessage(error));
     } finally {
       setLoading(false);
     }
@@ -77,6 +75,7 @@ function LoginPage() {
                 }
                 placeholder="Enter Password"
                 inputClassName="w-full"
+                feedback={false}
               />
             </div>
 

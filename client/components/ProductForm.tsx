@@ -1,20 +1,25 @@
 "use client";
 
-import { ProductResponse } from "@/types/product.type";
-import { Button } from "primereact/button";
+import { useState, useEffect } from "react";
 import { Dialog } from "primereact/dialog";
-import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
-import { useEffect, useState } from "react";
+import { InputNumber } from "primereact/inputnumber";
+import { Button } from "primereact/button";
+import { Product } from "@/types/product.type";
 
 interface ProductFormProps {
   visible: boolean;
-  product?: ProductResponse | null;
+  product?: Product | null;
   onHide: () => void;
   onSave: (data: any) => void;
 }
 
-function ProductForm({ visible, product, onHide, onSave }: ProductFormProps) {
+export default function ProductForm({
+  visible,
+  product,
+  onHide,
+  onSave,
+}: ProductFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     price: 0,
@@ -64,7 +69,7 @@ function ProductForm({ visible, product, onHide, onSave }: ProductFormProps) {
             id="name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder="Enter Product Name"
+            placeholder="Enter product name"
           />
         </div>
 
@@ -101,5 +106,3 @@ function ProductForm({ visible, product, onHide, onSave }: ProductFormProps) {
     </Dialog>
   );
 }
-
-export default ProductForm;

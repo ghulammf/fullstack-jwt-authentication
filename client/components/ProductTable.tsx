@@ -84,7 +84,7 @@ function ProductTable({ products, onEdit, onDelete }: ProductTableProps) {
         <Column
           header="Actions"
           body={actionTemplate}
-          style={{ width: "100px" }}
+          style={{ width: "110px" }}
         />
       </DataTable>
       <ConfirmDialog

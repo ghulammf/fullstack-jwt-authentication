@@ -1,4 +1,4 @@
-import e, { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import ProductService from "../services/product.service";
 
 class ProductController {
@@ -30,7 +30,8 @@ class ProductController {
 
   static async getItem(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = await ProductService.getItem(Number(req.params));
+      const id: number = parseInt(req.params.id);
+      const data = await ProductService.getItem(id);
       return res.status(200).json({
         status: "success",
         message: "Product retrieved successfully",
@@ -43,7 +44,8 @@ class ProductController {
 
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = await ProductService.update(Number(req.params), req.body);
+      const id: number = parseInt(req.params.id);
+      const data = await ProductService.update(id, req.body);
       return res.status(201).json({
         status: "success",
         message: "Product updated successfully",
@@ -56,7 +58,8 @@ class ProductController {
 
   static async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      await ProductService.delete(Number(req.params));
+      const id: number = parseInt(req.params.id);
+      await ProductService.delete(id);
       return res.status(201).json({
         status: "success",
         message: "Product deleted successfully",

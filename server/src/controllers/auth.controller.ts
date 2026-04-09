@@ -43,11 +43,17 @@ class AuthController {
 
   static async logout(req: Request, res: Response, next: NextFunction) {
     try {
-      const { refreshToken } = req.body;
+      const { refreshToken } = req.cookies;
       if (!refreshToken) {
         throw new ResponseError(400, "Refresh Token is required");
       }
       await AuthService.logout(refreshToken);
+
+      res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
 
       return res.status(200).json({
         status: "success",
@@ -60,7 +66,7 @@ class AuthController {
 
   static async refreshToken(req: Request, res: Response, next: NextFunction) {
     try {
-      const { refreshToken } = req.body;
+      const { refreshToken } = req.cookies;
 
       if (!refreshToken) {
         throw new ResponseError(400, "Refresh Token Required!");

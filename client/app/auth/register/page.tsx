@@ -1,6 +1,7 @@
 "use client";
 
 import authService from "@/services/auth.service";
+import errorMessage from "@/utils/error-handler";
 import { useToast } from "@/utils/toast";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
@@ -28,8 +29,8 @@ function RegisterPage() {
       const response = await authService.register(formData);
       toast.showSuccess(response.message);
       router.push("/auth/login");
-    } catch (error: any) {
-      toast.showError(error.response?.data?.message);
+    } catch (error: unknown) {
+      toast.showError(errorMessage(error));
     } finally {
       setloading(false);
     }
@@ -81,7 +82,6 @@ function RegisterPage() {
             <div className="flex flex-col gap-2">
               <label htmlFor="password">Password</label>
               <Password
-                className="w-full"
                 inputClassName="w-full"
                 inputId="password"
                 value={formData.password}
@@ -89,7 +89,6 @@ function RegisterPage() {
                   setFormData({ ...formData, password: e.target.value })
                 }
                 placeholder="Enter Password"
-                toggleMask
               />
             </div>
 
@@ -106,12 +105,11 @@ function RegisterPage() {
                 }
                 placeholder="Enter Confirm Password"
                 inputClassName="w-full"
-                toggleMask
               />
             </div>
 
             {/* Button Input */}
-            <div className="w-full text-center">
+            <div className="w-full text-center mt-5">
               <Button
                 label="Register"
                 icon="pi pi-user-plus"
